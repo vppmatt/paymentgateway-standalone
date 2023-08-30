@@ -32,3 +32,5 @@ Alternatively to run it from the command line:
 - execute the jar file with "java -jar target/paymentgateway-1.3.jar"
 
 Once the file is up and running, open the paymentgatewayclient.html file in a browser to test the Rest API.
+
+Trigger the build plz!
