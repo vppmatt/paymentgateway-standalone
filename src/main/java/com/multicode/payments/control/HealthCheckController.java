@@ -1,10 +1,10 @@
 package com.multicode.payments.control;
 
-import com.multicode.payments.domain.*;
+import com.multicode.payments.service.BootstrapService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.*;
-import java.time.*;
 import java.util.*;
 
 @RestController
@@ -12,9 +12,16 @@ import java.util.*;
 @CrossOrigin
 public class HealthCheckController {
 
+    @Autowired
+    BootstrapService bootstrapService;
+
     @GetMapping("/health")
-    public String systemIsHealthy() {
-        return "{\"status\":\"ok\"}";
+    public Map<String,Object> systemIsHealthy()
+    {
+        Map<String,Object> result = new HashMap<>();
+        result.put("status","ok");
+        result.put("LastReset", bootstrapService.getLastReset());
+        return result;
     }
 
     @PostMapping("/restart")
@@ -26,7 +33,7 @@ public class HealthCheckController {
             else {
                 String ipAddress = request.getRemoteAddr();
                 System.out.println("Restart requested by: " + ipAddress);
-                System.exit(0);
+                bootstrapService.resetNow();
                 return "{\"status\":\"ok\"}";
             }
         }

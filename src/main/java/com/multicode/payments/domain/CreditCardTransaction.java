@@ -33,8 +33,8 @@ public class CreditCardTransaction {
         String[] fields = rawData.split(",");
         this.id = Integer.parseInt(fields[0].replace("(","").trim());
         this.amount = Double.parseDouble(fields[1].trim());
-        this.country = fields[2].replaceAll("'", "").trim();
-        this.currency = fields[3].replaceAll("'", "").trim();
+        this.country = fields[2].replaceAll("'", "").trim().toLowerCase();
+        this.currency = fields[3].replaceAll("'", "").trim().toLowerCase();
         this.date = LocalDate.parse(fields[4].replaceAll("'", "").trim().split(" ")[0]);
         this.orderId = fields[5].replaceAll("'", "").trim();
         this.taxCode = Integer.parseInt(fields[6].replace("(","").trim());
